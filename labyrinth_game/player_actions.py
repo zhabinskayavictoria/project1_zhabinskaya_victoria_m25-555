@@ -1,5 +1,5 @@
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.utils import describe_current_room, show_inventory
+from labyrinth_game.utils import describe_current_room
 
 def show_inventory(game_state):
     inventory = game_state['player_inventory']
