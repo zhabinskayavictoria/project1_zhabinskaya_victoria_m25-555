@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.player_actions import *
-from labyrinth_game.utils import *
+from labyrinth_game.player_actions import get_input, show_inventory
+from labyrinth_game.utils import describe_current_room
 
 game_state = {
     'player_inventory': [],
@@ -12,7 +12,16 @@ game_state = {
 }
 
 def main():
-    print("Привет!")
-
+    print("Добро пожаловать в Лабиринт сокровищ!")
+    describe_current_room(game_state)
+    
+    while not game_state['game_over']:
+        command = get_input()
+        if command in ("quit"):
+            print("Выход из игры. Пока!")
+            break
+        
+        
 if __name__ == "__main__":
     main()
+    
