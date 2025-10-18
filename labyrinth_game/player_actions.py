@@ -1,6 +1,7 @@
 from labyrinth_game.constants import ROOMS
 from labyrinth_game.utils import describe_current_room
 
+
 def show_inventory(game_state):
     inventory = game_state['player_inventory']
 
@@ -18,7 +19,6 @@ def get_input(prompt="> "):
         print("\nВыход из игры.")
         return "quit"
 
-
 def move_player(game_state, direction):
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
@@ -33,6 +33,9 @@ def move_player(game_state, direction):
 def take_item(game_state, item_name):
     current_room = game_state['current_room']
     room_items = ROOMS[current_room].get('items', [])
+    if item_name == 'treasure_chest':
+        print("Вы не можете поднять сундук, он слишком тяжелый.")
+        return
     if item_name in room_items:
         game_state['player_inventory'].append(item_name)
         room_items.remove(item_name)
