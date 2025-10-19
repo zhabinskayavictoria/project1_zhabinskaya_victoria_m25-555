@@ -75,17 +75,28 @@ def solve_puzzle(game_state):
         return
 
     question, correct_answer = puzzle
+    alt_answers = {
+        '10': ['десять'],
+        'шаг шаг шаг': ['три шага'],
+        'буква м': ['м']
+    }
     print(question)
     answer = get_input("Ваш ответ: ").strip().lower()
+    valid_answers = [correct_answer.lower()] + alt_answers.get(correct_answer.lower(), [])
 
-    if answer == correct_answer.lower():
+    if answer in valid_answers:
         print("Правильно! Вы решили загадку.")
         room['puzzle'] = None  
-        if 'treasure_key' not in game_state['player_inventory']:
+        if current_room_key == 'trap_room':
+            print("Вы обезвредили ловушку!")
+        if 'treasure_key' not in game_state['player_inventory'] and current_room_key != 'trap_room':
             game_state['player_inventory'].append('treasure_key')
             print("Вы получили ключ от сокровищницы!")
     else:
         print("Неверно. Попробуйте снова.")
+        if current_room_key == 'trap_room':
+            from labyrinth_game.utils import trigger_trap
+            trigger_trap(game_state)
 
 
 def attempt_open_treasure(game_state):
