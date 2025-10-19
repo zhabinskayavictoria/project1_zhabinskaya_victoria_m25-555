@@ -22,6 +22,30 @@ def trigger_trap(game_state):
         else:
             print("Вы уцелели, но было опасно!")
 
+def random_event(game_state):
+    if pseudo_random(game_state.get('steps_taken', 0), 10) != 0:
+        return  
+
+    event_type = pseudo_random(game_state.get('steps_taken', 0) + 1, 3)
+
+    current_room = game_state['current_room']
+    inventory = game_state.get('player_inventory', [])
+
+    if event_type == 0:
+        print("Вы нашли на полу монетку.")
+        ROOMS[current_room].setdefault('items', []).append('coin')
+
+    elif event_type == 1:
+        print("Вы слышите странный шорох.")
+        if 'sword' in inventory:
+            print("Благодаря мечу, вы отпугнули существо.")
+
+    else:  
+        if current_room == 'trap_room' and 'torch' not in inventory:
+            print("Внимание! Ловушка сработала!")
+            trigger_trap(game_state)
+
+
 def describe_current_room(game_state):
     current_room_key = game_state['current_room']
     room = ROOMS[current_room_key]
