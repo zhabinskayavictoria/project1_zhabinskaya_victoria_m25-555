@@ -3,6 +3,9 @@ from labyrinth_game.utils import describe_current_room, random_event
 
 
 def show_inventory(game_state):
+    """
+    Печатает текущий инвентарь игрока из game_state.
+    """
     inventory = game_state['player_inventory']
 
     if inventory:
@@ -12,14 +15,24 @@ def show_inventory(game_state):
     else:
         print("Ваш инвентарь пуст.")
 
+
 def get_input(prompt="> "):
+    """
+    Безопасно читает ввод пользователя.
+    """
     try:
         return input(prompt)
     except (KeyboardInterrupt, EOFError):
         print("\nВыход из игры.")
         return "quit"
 
+
 def move_player(game_state, direction):
+    """
+    Перемещает игрока в указанном направлении, если такой выход существует.
+    Проверяет наличие ключа для доступа в treasure_room, обновляет шаги,
+    вызывает описание комнаты и возможное случайное событие.
+    """
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
     exits = room_data.get('exits', {})
@@ -27,7 +40,8 @@ def move_player(game_state, direction):
         next_room = exits[direction]
         if next_room == 'treasure_room':
             if 'rusty_key' in game_state['player_inventory']:
-                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ.")
+                print("Вы используете найденный ключ, чтобы открыть путь "
+            "в комнату сокровищ.")
                 game_state['current_room'] = 'treasure_room'
             else:
                 print("Дверь заперта. Нужен ключ, чтобы пройти дальше.")
@@ -41,7 +55,11 @@ def move_player(game_state, direction):
     else:
         print("Нельзя пойти в этом направлении.")
         
+        
 def take_item(game_state, item_name):
+    """
+    Позволяет взять предмет из текущей комнаты, если он там есть.
+    """
     current_room = game_state['current_room']
     room_items = ROOMS[current_room].get('items', [])
     if item_name == 'treasure_chest':
@@ -54,7 +72,11 @@ def take_item(game_state, item_name):
     else:
         print("Такого предмета здесь нет.")
         
+        
 def use_item(game_state, item_name):
+    """
+    Использует предмет из инвентаря с соответствующим эффектом.
+    """
     inventory = game_state.get('player_inventory', [])
     if item_name not in inventory:
         print("У вас нет такого предмета.")

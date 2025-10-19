@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from labyrinth_game.constants import ROOMS, COMMANDS
+from labyrinth_game.constants import COMMANDS
 from labyrinth_game.player_actions import (
     get_input,
     move_player,
@@ -15,13 +15,11 @@ from labyrinth_game.utils import (
     solve_puzzle,
 )
 
-game_state = {
-    'player_inventory': [],
-    'current_room': 'entrance',
-    'game_over': False,
-    'steps_taken': 0
-}
+
 def process_command(game_state, command_line, commands):
+    """
+    Обрабатывает введённую пользователем команду.
+    """
     parts = command_line.strip().split(maxsplit=1)
     action = parts[0].lower()
     arg = parts[1] if len(parts) > 1 else None
@@ -64,6 +62,12 @@ def process_command(game_state, command_line, commands):
 
             
 def main():
+    game_state = {
+    'player_inventory': [],
+    'current_room': 'entrance',
+    'game_over': False,
+    'steps_taken': 0
+    }
     print("Добро пожаловать в Лабиринт сокровищ!")
     describe_current_room(game_state)
     
