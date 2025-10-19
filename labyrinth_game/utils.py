@@ -117,7 +117,7 @@ def attempt_open_treasure(game_state):
         print("В сундуке сокровище! Вы победили!")
         game_state['game_over'] = True
     else:
-        answer = get_input(Сундук заперт. Ввести код? (да/нет):).strip().lower()
+        answer = get_input("Сундук заперт. Ввести код? (да/нет):").strip().lower()
         if answer == 'да':
             puzzle = room.get('puzzle')
             if not puzzle:
@@ -137,13 +137,7 @@ def attempt_open_treasure(game_state):
         else:
             print("Вы отступаете от сундука.")
 
-def show_help():
+def show_help(commands):
     print("\nДоступные команды:")
-    print("  go <direction>  - перейти в направлении (north/south/east/west)")
-    print("  look            - осмотреть текущую комнату")
-    print("  take <item>     - поднять предмет")
-    print("  use <item>      - использовать предмет из инвентаря")
-    print("  inventory       - показать инвентарь")
-    print("  solve           - попытаться решить загадку в комнате")
-    print("  quit            - выйти из игры")
-    print("  help            - показать это сообщение")
+    for cmd, desc in commands.items():
+        print(f"  {cmd:<16} - {desc}")
