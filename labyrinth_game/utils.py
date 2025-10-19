@@ -1,5 +1,11 @@
 from labyrinth_game.constants import ROOMS
+from labyrinth_game.constants import CONST_RANDOM_1, CONST_RANDOM_2
+import math
 
+def pseudo_random(seed, modulo):
+    x = math.sin(seed * CONST_RANDOM_1) * CONST_RANDOM_2
+    frac = x - math.floor(x)
+    return int(frac * modulo)
 
 def describe_current_room(game_state):
     current_room_key = game_state['current_room']

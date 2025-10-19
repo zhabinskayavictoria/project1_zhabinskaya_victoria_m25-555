@@ -48,3 +48,6 @@ ROOMS = {
         'puzzle': None
     }
 }
+
+CONST_RANDOM_1 = 12.9898
+CONST_RANDOM_2 = 43758.5453
