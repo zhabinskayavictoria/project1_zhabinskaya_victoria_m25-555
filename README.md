@@ -4,16 +4,25 @@
 
 # :one: Установка
 ### Установка зависимостей через Poetry
+```
 poetry install
+```
 ### Или через Makefile
+```
 make install
+```
 
 # :two: Запуск
 ### Запуск через Poetry
+```
 poetry run project
+```
 ### Или через Makefile
+```
 make project
+```
 ### Другое
+```
 # Сборка пакета
 make build
 
@@ -25,6 +34,7 @@ make publish
 
 # Установка собранного пакета
 make package-install
+```
 
 
 # Игровые команды :speech_balloon:
