@@ -7,6 +7,21 @@ def pseudo_random(seed, modulo):
     frac = x - math.floor(x)
     return int(frac * modulo)
 
+def trigger_trap(game_state):
+    print("Ловушка активирована! Пол стал дрожать...")
+    inventory = game_state.get('player_inventory', [])
+    if inventory:
+        index = pseudo_random(game_state.get('steps_taken', 0), len(inventory))
+        lost_item = inventory.pop(index)
+        print(f"Вы потеряли предмет: {lost_item}")
+    else:
+        damage = pseudo_random(game_state.get('steps_taken', 0), 10)
+        if damage < 3:
+            print("Вы получили смертельное ранение от ловушки. Игра окончена.")
+            game_state['game_over'] = True
+        else:
+            print("Вы уцелели, но было опасно!")
+
 def describe_current_room(game_state):
     current_room_key = game_state['current_room']
     room = ROOMS[current_room_key]
